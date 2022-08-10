@@ -2,6 +2,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+
 @DisplayName("Test Bank Account class")
 public class BankAccountTest {
 
@@ -59,6 +61,15 @@ public class BankAccountTest {
         BankAccount bankAccount = new BankAccount(500, -1000);
         assertAll(() -> bankAccount.deposit(200), () -> bankAccount.withDraw(400));
     }
+
+    @Test
+    @DisplayName("Test speed deposit")
+    public void testDepositTimeout() {
+        BankAccount bankAccount = new BankAccount(400, 0);
+        assertTimeout(Duration.ofNanos(10), () -> bankAccount.deposit(200));
+    }
+
+
 
 
 }
